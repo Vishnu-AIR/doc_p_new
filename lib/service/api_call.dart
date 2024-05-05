@@ -64,10 +64,11 @@ class ApiHelper {
       };
       final data = json.encode(body);
       final response = await _dio.post(
-        '$baseUrl/doctorauth/$doctorId',
+        '$baseUrl/doctorauth/update/$doctorId',
         options: Options(headers: headers),
         data: data,
       );
+      print(response.data);
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -215,7 +216,7 @@ class ApiHelper {
       };
       final data = json.encode({});
       final response = await _dio.post(
-        '$baseUrl/doctorauth/${decodedToken!["_id"]}',
+        '$baseUrl/doctorauth/update/${decodedToken!["_id"]}',
         options: Options(headers: headers),
         data: data,
       );

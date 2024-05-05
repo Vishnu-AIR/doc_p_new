@@ -65,7 +65,7 @@ flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/img_6_1.png"
+  image_path: "assets/images/health-ko-doctor.png"
 
 
 # For information on the generic Dart part of this file, see the
