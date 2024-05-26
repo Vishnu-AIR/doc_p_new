@@ -207,7 +207,7 @@ class ApiHelper {
         return null;
       }
 
-      Map<String, dynamic>? decodedToken = JwtDecoder.decode(_token!);
+      Map<String, dynamic>? decodedToken = JwtDecoder.decode(_token);
 
       print(decodedToken["_id"]);
 
@@ -216,7 +216,7 @@ class ApiHelper {
       };
       final data = json.encode({});
       final response = await _dio.post(
-        '$baseUrl/doctorauth/update/${decodedToken!["_id"]}',
+        '$baseUrl/doctorauth/update/${decodedToken["_id"]}',
         options: Options(headers: headers),
         data: data,
       );
@@ -228,6 +228,52 @@ class ApiHelper {
       }
     } catch (error) {
       print('Error in updateDoctor: $error');
+      return null;
+    }
+  }
+
+  static Future<dynamic> checkPhone(String phoneNumber) async {
+    try {
+      final Map<String, String> headers = {
+        'Content-Type': 'application/json',
+      };
+      final data = json.encode({"phone": phoneNumber});
+      final response = await _dio.post(
+        '$baseUrl/doctorauth/phonechecker',
+        options: Options(headers: headers),
+        data: data,
+      );
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        ('Request failed with status: ${response.statusCode}');
+        return null;
+      }
+    } catch (error) {
+      print('Error in verifyOTP: $error');
+      return null;
+    }
+  }
+
+  static Future<dynamic> checkEmail(String email) async {
+    try {
+      final Map<String, String> headers = {
+        'Content-Type': 'application/json',
+      };
+      final data = json.encode({"email": email});
+      final response = await _dio.post(
+        '$baseUrl/doctorauth/phonechecker',
+        options: Options(headers: headers),
+        data: data,
+      );
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        ('Request failed with status: ${response.statusCode}');
+        return null;
+      }
+    } catch (error) {
+      print('Error in verifyOTP: $error');
       return null;
     }
   }

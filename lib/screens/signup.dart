@@ -26,23 +26,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       _isLoading = true;
     });
-    var res = await ApiHelper.verifyOTP(_phone.value.text.trim());
-    //print(res);
-    //if(res["data"])
-    if (res["success"] == true) {
+    var resc = await ApiHelper.checkPhone(_phone.value.text.trim());
+
+    if (resc["status"] == true) {
+      var res = await ApiHelper.verifyOTP(_phone.value.text.trim());
+      //print(res);
+      //if(res["data"])
+      if (res["success"] == true) {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => OtpScreen(
+                  otp: res["data"]["otp"],
+                  phone: _phone.value.text.trim(),
+                )));
+        return;
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${res["message"]}'),
+            duration: Duration(seconds: 2), // Adjust duration as needed
+          ),
+        );
+        return;
+      }
+    } else {
       setState(() {
         _isLoading = false;
       });
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => OtpScreen(
-                otp: res["data"]["otp"],
-                phone: _phone.value.text.trim(),
-              )));
-      return;
-    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${res["message"]}'),
+          content: Text('${resc["message"]}'),
           duration: Duration(seconds: 2), // Adjust duration as needed
         ),
       );
@@ -154,8 +172,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               sendOtp();
                             },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                        onPrimary: Colors.white,
+                        foregroundColor: Colors.blue,
+                        backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),

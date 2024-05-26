@@ -3,6 +3,8 @@ import 'package:dummy1/screens/upload.dart';
 import 'package:dummy1/service/docModel.dart';
 import 'package:flutter/material.dart';
 
+import '../service/api_call.dart';
+
 class PersonalDetails extends StatefulWidget {
   final DoctorModel doc;
   const PersonalDetails({super.key, required this.doc});
@@ -19,6 +21,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _speciality = TextEditingController();
+
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -49,15 +53,34 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       return;
     }
     setState(() {
-      docModel = docModel!.updateField(
-          name: _name.text.trim(),
-          countryOfOrigin: _country.text.trim(),
-          email: _email.text.trim(),
-          password: _password.text.trim(),
-          speciality: _speciality.text.trim());
+      _isLoading = true;
     });
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => ImagePickerDemo(doc: docModel!)));
+    var resc = await ApiHelper.checkPhone(_email.value.text.trim());
+
+    if (resc["status"]) {
+      setState(() {
+        _isLoading = false;
+        docModel = docModel!.updateField(
+            name: _name.text.trim(),
+            countryOfOrigin: _country.text.trim(),
+            email: _email.text.trim(),
+            password: _password.text.trim(),
+            speciality: _speciality.text.trim());
+      });
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => ImagePickerDemo(doc: docModel!)));
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${resc["message"]}'),
+          duration: Duration(seconds: 2), // Adjust duration as needed
+        ),
+      );
+      return;
+    }
   }
 
   @override
@@ -312,8 +335,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                   sumbitPersonal();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
-                                  onPrimary: Colors.white,
+                                  foregroundColor: Colors.blue,
+                                  backgroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
                                         10.0), // Circular border

@@ -1,7 +1,6 @@
-import 'package:dummy1/screens/availabilty.dart';
+
 import 'package:dummy1/screens/history_list.dart';
-import 'package:dummy1/screens/navbar.dart';
-import 'package:dummy1/screens/personal_details.dart';
+
 import 'package:dummy1/service/docModel.dart';
 import 'package:flutter/material.dart';
 

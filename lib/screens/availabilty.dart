@@ -1,8 +1,7 @@
 import 'package:dummy1/main.dart';
-import 'package:dummy1/screens/home.dart';
-import 'package:dummy1/screens/navbar.dart';
+
 import 'package:dummy1/screens/profile_page.dart';
-import 'package:dummy1/screens/welcome.dart';
+
 import 'package:dummy1/service/api_call.dart';
 import 'package:dummy1/service/docModel.dart';
 import 'package:flutter/material.dart';
@@ -405,8 +404,8 @@ class _AvailabilityState extends State<Availability> {
                                         onNextPressed();
                                       },
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
-                                  onPrimary: Colors.white,
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: Colors.blue,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),

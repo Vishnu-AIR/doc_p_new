@@ -1,4 +1,4 @@
-package com.example.dummy1
+package com.HealthKo.Doc
 
 import io.flutter.embedding.android.FlutterActivity
 

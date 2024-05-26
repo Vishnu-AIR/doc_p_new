@@ -451,8 +451,8 @@ class _ImagePickerDemoState extends State<ImagePickerDemo> {
                                         //print(userUploads);
                                       },
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
-                                  onPrimary: Colors.white,
+                                  foregroundColor: Colors.blue,
+                                  backgroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
                                         10.0), // Circular border
