@@ -27,8 +27,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isLoading = true;
     });
     var resc = await ApiHelper.checkPhone(_phone.value.text.trim());
-
-    if (resc["status"] == true) {
+    print(resc);
+    if (resc["status"] == false) {
       var res = await ApiHelper.verifyOTP(_phone.value.text.trim());
       //print(res);
       //if(res["data"])
@@ -48,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${res["message"]}'),
+            content: Text('-->${res["message"]}'),
             duration: Duration(seconds: 2), // Adjust duration as needed
           ),
         );
@@ -60,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${resc["message"]}'),
+          content: Text('####${resc["message"]}'),
           duration: Duration(seconds: 2), // Adjust duration as needed
         ),
       );

@@ -7,7 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../service/api_call.dart';
 
-
 import 'dart:async'; // Add this import statement for Completer
 
 class HomeScreen extends StatefulWidget {
@@ -149,12 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
       });
       if (_res["success"] == true) {
         //DoctorModel _doc = DoctorModel.fromJson(_res["data"]);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Location Updated'),
-            duration: Duration(seconds: 2), // Adjust duration as needed
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('Location Updated'),
+        //     duration: Duration(seconds: 2), // Adjust duration as needed
+        //   ),
+        // );
         setState(() {
           _isLoading = false;
         });
@@ -277,71 +276,71 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 32,
                     ),
-                    BlueShadowButton(
-                        onPressed: () {},
-                        child: const Center(
-                            child: Flex(
-                          direction: Axis.horizontal,
-                          children: [
-                            Icon(
-                              Icons.thumb_up_rounded,
-                              color: Colors.white,
-                            ),
-                            Spacer(),
-                            Text(
-                              "Rating / Review",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            Spacer(),
-                            Text(
-                              "(3)",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ))),
+                    // BlueShadowButton(
+                    //     onPressed: () {},
+                    //     child: const Center(
+                    //         child: Flex(
+                    //       direction: Axis.horizontal,
+                    //       children: [
+                    //         Icon(
+                    //           Icons.thumb_up_rounded,
+                    //           color: Colors.white,
+                    //         ),
+                    //         Spacer(),
+                    //         Text(
+                    //           "Rating / Review",
+                    //           style: TextStyle(
+                    //               fontSize: 16,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.w700),
+                    //         ),
+                    //         Spacer(),
+                    //         Text(
+                    //           "(3)",
+                    //           style: TextStyle(
+                    //               fontSize: 16,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.w500),
+                    //         ),
+                    //       ],
+                    //     ))),
                     const SizedBox(
                       height: 32,
                     ),
-                    BlueShadowButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HistoryScreen(
-                                    reqList: ReqList,
-                                    doc: _docModel!,
-                                  )));
-                        },
-                        child: const Center(
-                            child: Flex(
-                          direction: Axis.horizontal,
-                          children: [
-                            Icon(
-                              Icons.person_pin_sharp,
-                              color: Colors.white,
-                            ),
-                            Spacer(),
-                            Text(
-                              "History",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            Spacer(),
-                            Text(
-                              "",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ))),
+                    // BlueShadowButton(
+                    //     onPressed: () {
+                    //       Navigator.of(context).push(MaterialPageRoute(
+                    //           builder: (context) => HistoryScreen(
+                    //                 reqList: ReqList,
+                    //                 doc: _docModel!,
+                    //               )));
+                    //     },
+                    //     child: const Center(
+                    //         child: Flex(
+                    //       direction: Axis.horizontal,
+                    //       children: [
+                    //         Icon(
+                    //           Icons.person_pin_sharp,
+                    //           color: Colors.white,
+                    //         ),
+                    //         Spacer(),
+                    //         Text(
+                    //           "History",
+                    //           style: TextStyle(
+                    //               fontSize: 16,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.w700),
+                    //         ),
+                    //         Spacer(),
+                    //         Text(
+                    //           "",
+                    //           style: TextStyle(
+                    //               fontSize: 16,
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.w500),
+                    //         ),
+                    //       ],
+                    //     ))),
                     const Spacer()
                   ],
                 ),

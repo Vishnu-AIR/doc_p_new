@@ -4,6 +4,7 @@ import 'package:dummy1/screens/navbar.dart';
 import 'package:dummy1/screens/personal_details.dart';
 import 'package:dummy1/screens/update_email.dart';
 import 'package:dummy1/screens/update_password.dart';
+import 'package:dummy1/service/api_call.dart';
 import 'package:flutter/material.dart';
 
 import '../service/docModel.dart';
@@ -175,6 +176,16 @@ class _SettingScreenState extends State<SettingScreen> {
                             Spacer(),
                           ],
                         ))),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    MaterialButton(
+                      onPressed: () => _showDeleteConfirmationDialog(context),
+                      child: Text(
+                        "Delete Acount",
+                        style: TextStyle(color: Colors.redAccent),
+                      ),
+                    ),
                     const SizedBox(
                       height: 32,
                     ),
@@ -233,6 +244,39 @@ class _SettingScreenState extends State<SettingScreen> {
               )
             ]),
       ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Are you sure?'),
+          content: Text('Are you sure you want to delete your account?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
+                bool _isDeleted = await ApiHelper.deleteDoc();
+                if (_isDeleted) {
+                  await MySharedPreferences.saveIsLoggedIn(false);
+                  await MySharedPreferences.saveToken("");
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const NavBar()));
+                }
+                // Dismiss the dialog
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

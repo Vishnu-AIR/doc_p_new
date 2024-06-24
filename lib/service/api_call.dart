@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:dummy1/main.dart';
+import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class ApiHelper {
@@ -269,11 +270,75 @@ class ApiHelper {
       if (response.statusCode == 200) {
         return response.data;
       } else {
-        ('Request failed with status: ${response.statusCode}');
+        print('Request failed with status: ${response.statusCode}');
         return null;
       }
     } catch (error) {
       print('Error in verifyOTP: $error');
+      return null;
+    }
+  }
+
+  //delete doc
+  static Future<dynamic> deleteDoc() async {
+    try {
+      String? _token = await MySharedPreferences.getToken();
+      if (_token == null) {
+        return null;
+      }
+
+      var headers = {'Authorization': 'Bearer $_token'};
+      var data = '''''';
+      var dio = Dio();
+      var response = await dio.request(
+        'https://api.healthko.in/api/doctor/account',
+        options: Options(
+          method: 'DELETE',
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        print(json.encode(response.data));
+        return true;
+      } else {
+        print(response.statusMessage);
+        return null;
+      }
+    } catch (error) {
+      print('Error in verifyOTP: $error');
+      return null;
+    }
+  }
+
+  //get doc by phone
+  static Future<dynamic> getDocByPhone(String phone) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var data = json.encode({"phone": phone});
+      var dio = Dio();
+      var response = await dio.request(
+        'https://api.healthko.in/api/doctorauth/phonechecker',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        print(response.data?["data"]?["_id"]);
+        if (response.data?["status"]) {
+          return response.data?["data"]?["_id"];
+        }
+        return false;
+      } else {
+        print(response.statusMessage);
+        return false;
+      }
+    } catch (e) {
+      print('Error in verifyOTP: $e');
       return null;
     }
   }

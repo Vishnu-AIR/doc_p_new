@@ -1,4 +1,5 @@
 import 'package:dummy1/main.dart';
+import 'package:dummy1/screens/forget_password.dart';
 import 'package:dummy1/screens/home.dart';
 import 'package:dummy1/screens/navbar.dart';
 import 'package:dummy1/screens/signup.dart';
@@ -181,6 +182,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => ForgetPasswordScreen()));
+                    },
+                    child: Text(
+                      'Forget Password',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.blue,
+                      ),
+                      // You can add onTap callback to navigate to login screen
+                      // onTap: () {
+                      //   Navigator.pushNamed(context, '/login');
+                      // },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24,
                   ),
                   GestureDetector(
                     onTap: () {

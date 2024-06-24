@@ -132,6 +132,14 @@ class _AvailabilityState extends State<Availability> {
             builder: (context) => ProfilePage(
                   doctor: DoctorModel.fromJson(_res["data"]),
                 )));
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) => ProfilePage(
+        //             doctor: DoctorModel.fromJson(_res["data"]),
+        //           )),
+        //   (Route<dynamic> route) => false,
+        // );
         return;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

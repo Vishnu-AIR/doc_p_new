@@ -56,8 +56,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       _isLoading = true;
     });
     var resc = await ApiHelper.checkPhone(_email.value.text.trim());
-
-    if (resc["status"]) {
+    print(resc);
+    if (!resc["status"]) {
       setState(() {
         _isLoading = false;
         docModel = docModel!.updateField(
